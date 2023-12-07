@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.shortcuts import render
 
 
@@ -7,12 +6,12 @@ def home(request):
 
 
 def bwHome(request):
-    return HttpResponse("bwHome")
+    return render(request, "bw.html")
 
 
 def cpuHome(request):
-    return HttpResponse("cpuHome")
+    return render(request, "cpu.html")
 
 
 def ramHome(request):
-    return HttpResponse("ramHome")
+    return render(request, "ram.html")
