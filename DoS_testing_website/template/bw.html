@@ -13,7 +13,7 @@
         <ul>
             {% for file in files %}
                 <li>
-                    <a href="bw/{{ file }}">{{ file }} MB</a>
+                    <a href={% url "bw" file %}>{{ file }} MB</a>
                 </li>
             {% endfor %}
         </ul>
