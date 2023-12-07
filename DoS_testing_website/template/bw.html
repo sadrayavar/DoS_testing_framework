@@ -3,5 +3,19 @@
     Bandwidth
 {% endblock title %}
 {% block content %}
-    Bandwidth
+    {% if length == 0 %}
+        Please add some files to the static directory in your django project and refresh this page.
+        <br>
+        <br>
+        file name format: &lt;file size in Megabytes>
+    {% else %}
+        <p>Select some file to download</p>
+        <ul>
+            {% for file in files %}
+                <li>
+                    <a href="bw/{{ file }}">{{ file }} MB</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock content %}

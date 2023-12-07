@@ -8,6 +8,7 @@ urlpatterns = [
     path("", views.home, name="home"),
     #
     path("bw", views.bwHome, name="bwHome"),
+    path("bw/<str:fileName>", views.bw, name="bw"),
     #
     path("cpu", views.cpuHome, name="cpuHome"),
     #

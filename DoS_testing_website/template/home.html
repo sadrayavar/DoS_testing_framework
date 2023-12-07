@@ -5,11 +5,17 @@
 {% block content %}
     <ul>
         <li>
-            <a href='bw'>Bandwidth</a>
+            <a href={% url "bwHome" %}>Bandwidth</a>
+            <p>You can download files using below format in your downloader tool</p>
+            http://&lt;thisSiteIp&gt;/bw/&lt;fileName&gt;
         </li>
+        <br>
+        <br>
         <li>
             <a href='cpu'>CPU</a>
         </li>
+        <br>
+        <br>
         <li>
             <a href='ram'>RAM</a>
         </li>
