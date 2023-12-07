@@ -4,6 +4,7 @@
 {% endblock title %}
 {% block content %}
     <ul>
+        <a href={% url 'get' %}>Get Attacker</a>
         <li>
             <a href={% url "bwHome" %}>Bandwidth</a>
             <p>You can download files using below format in your downloader tool</p>
@@ -11,11 +12,13 @@
         </li>
         <br>
         <br>
+        <br>
         <li>
             <a href={% url "cpuHome" %}>CPU</a>
             <p>You can download run factorial process with below format in your tool</p>
             http://&lt;thisSiteIp&gt;/cpu/&lt;factorialNumber&gt;
         </li>
+        <br>
         <br>
         <br>
         <li>

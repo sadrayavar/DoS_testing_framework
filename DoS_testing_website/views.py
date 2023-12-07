@@ -1,4 +1,4 @@
-from django.http import StreamingHttpResponse
+from django.http import StreamingHttpResponse, FileResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .forms import TextForm
@@ -8,6 +8,12 @@ import os, sys, time as timeLib
 
 def home(request):
     return render(request, "home.html")
+
+
+def get(request):
+    filePath = "./get.py"
+    file = open(filePath, "rb")
+    return FileResponse(file, as_attachment=True)
 
 
 ######################################################### bandwidth related views
@@ -37,6 +43,8 @@ def cpuHome(request):
     if type(num) != type(None):
         if num.isdigit():
             return redirect(reverse("cpu", args=[num]))
+        elif type(int(num)) == type(1.1):
+            return redirect("cpuHome")
         else:
             return redirect("cpuHome")
 

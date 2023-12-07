@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.home, name="home"),
+    path("get", views.get, name="get"),
     #
     path("bw", views.bwHome, name="bwHome"),
     path("bw/<str:fileName>", views.bw, name="bw"),
