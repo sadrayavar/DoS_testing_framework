@@ -15,10 +15,6 @@ class Get:
             shutil.rmtree(temp)
             os.makedirs(temp)
 
-    def getUrl(self):
-        if self.url != "":
-            return
-
     def getFile(self, url, destination):
         flag = time.time()
         temp = self.lastFile
@@ -30,33 +26,38 @@ class Get:
         print(f"\nDownload {temp} took: {str(time.time() - flag)}")
 
     def appointFile(self):
-        if self.url != "":
-            self.getUrl()
-
         dest = os.path.join(self.path, "downloades", str(self.lastFile))
         self.lastFile += 1
         self.getFile(self.url, dest)
 
 
 class Ui:
-    obj = Get()
-    url = "http://localhost:8000"
-    attackType = ["bw", "cpu", "ram"]
+    get = Get()
+    url = ""
+    type = ""
+    value = ""
 
     def __init__(self):
-        self.selectUrl()
+        # select URL
+        self.url = self.selectUrl()
 
         while True:
-            self.attackType()
-            obj.getUrl()
+            # select attack type
+            self.type = self.attackType()
 
-            handle = input("\Select: ")
+            # select attack value
+            self.value = self.selectValue()
+
+            # generate url
+            self.get.url = f"{self.url}/{self.type}/{self.value}"
+
+            # ask for threads
             handle = input("\nHow many threads: ")
             threads = []
 
             # add threads
             for _ in range(int(handle)):
-                thread = Thread(target=obj.appointFile)
+                thread = Thread(target=self.get.appointFile)
                 threads.append(thread)
 
             # start threads
@@ -68,13 +69,45 @@ class Ui:
                 thread.join()
 
     def selectUrl(self):
-        print("Enter your URL or nothing for default:")
-        print("( default is: http://localhost:8000 )")
-        temp = include()
+        while True:
+            print(
+                "\nEnter your URL or 0 for default: ( default is: http://localhost/ )"
+            )
 
-        if temp == "":
-
-            pass
+            temp = input()
+            if temp == "0":
+                return "http://localhost"
+            elif temp[:4] == "http" and temp[4:7] == "://":
+                return temp[:-1] if temp[-1] == "/" else temp
+            else:
+                continue
 
     def attackType(self):
-        pass
+        while True:
+            print("\nSelect one of the options below:")
+            if self.type != "":
+                print(f"- 0: default (default is {self.type})")
+            print("- 1: Bandwidth")
+            print("- 2: CPU")
+            print("- 3: RAM")
+            temp = input()
+
+            if temp == "0" and self.type != "":
+                return self.type
+            elif temp == "1":
+                return "bw"
+            elif temp == "2":
+                return "cpu"
+            elif temp == "3":
+                return "ram"
+            else:
+                continue
+
+    def selectValue(self):
+        while True:
+            print("\nEnter some value to use in your attack: ")
+            temp = input()
+            return temp
+
+
+Ui()
