@@ -32,8 +32,6 @@ def bw(request, fileName):
 
 
 ######################################################### cpu related views
-
-
 def cpuHome(request):
     num = request.GET.get("text")
     if type(num) != type(None):
