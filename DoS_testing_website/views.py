@@ -1,7 +1,9 @@
 from django.http import StreamingHttpResponse
-from django.shortcuts import render
-from .methods import listFiles
-import os
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from .forms import TextForm
+from .methods import listFiles, fileIterator, factorial
+import os, sys, time as timeLib
 
 
 def home(request):
@@ -21,15 +23,7 @@ def bw(request, fileName):
     filePath = "./static/" + fileName
     chunkSize = 1024 * 1024
 
-    def file_iterator(filePath, chunkSize):
-        with open(filePath, "rb") as file:
-            while True:
-                data = file.read(chunkSize)
-                if not data:
-                    break
-                yield data
-
-    response = StreamingHttpResponse(file_iterator(filePath, chunkSize))
+    response = StreamingHttpResponse(fileIterator(filePath, chunkSize))
     response["Content-Length"] = os.path.getsize(filePath)
     response["Content-Type"] = "*/*"
     response["Content-Disposition"] = f'attachment; filename="{fileName}"'
@@ -38,8 +32,33 @@ def bw(request, fileName):
 
 
 ######################################################### cpu related views
+
+
 def cpuHome(request):
-    return render(request, "cpu.html")
+    num = request.GET.get("text")
+    if type(num) != type(None):
+        if num.isdigit():
+            return redirect(reverse("cpu", args=[num]))
+        else:
+            return redirect("cpuHome")
+
+    context = {"form": TextForm()}
+    return render(request, "cpu.html", context)
+
+
+def cpu(request, num):
+    sys.setrecursionlimit(1000000 + 10)
+    sys.set_int_max_str_digits(999999)
+
+    flag = timeLib.time()
+    result = factorial(int(num))
+    runtime = timeLib.time() - flag
+
+    length = len(str(result))
+    form = {"form": TextForm()}
+
+    context = {"result": result, **form, "runtime": runtime, "length": length}
+    return render(request, "cpu.html", context)
 
 
 ######################################################### ram related views

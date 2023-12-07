@@ -11,6 +11,7 @@ urlpatterns = [
     path("bw/<str:fileName>", views.bw, name="bw"),
     #
     path("cpu", views.cpuHome, name="cpuHome"),
+    path("cpu/<str:num>", views.cpu, name="cpu"),
     #
     path("ram", views.ramHome, name="ramHome"),
 ]

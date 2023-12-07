@@ -3,5 +3,13 @@
     CPU
 {% endblock title %}
 {% block content %}
-    CPU
+    <form action="/cpu">
+        Fibonacci num:
+        {{ form }}
+        <button type="submit">Calculate</button>
+    </form>
+    <br>
+    {% if runtime %}<p>Calculated in {{ runtime }} Seconds.</p>{% endif %}
+    {% if length %}<p>result length is: {{ length }}</p>{% endif %}
+    {% if result %}<p>result is: {{ result }}</p>{% endif %}
 {% endblock content %}
