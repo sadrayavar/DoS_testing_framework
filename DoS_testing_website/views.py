@@ -79,4 +79,5 @@ def ram(request, givenTime):
     memory = []
     while True:
         memory.append(" " * 100_000_000)
+        print("#########", "Memory loaded with new 100MB of data")
         timeLib.sleep(int(givenTime))
