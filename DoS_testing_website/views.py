@@ -63,4 +63,20 @@ def cpu(request, num):
 
 ######################################################### ram related views
 def ramHome(request):
-    return render(request, "ram.html")
+    time = request.GET.get("text")
+
+    if type(time) != type(None):
+        if time.isdigit():
+            return redirect(reverse("ram", args=[time]))
+        else:
+            return redirect("ramHome")
+
+    form = {"form": TextForm()}
+    return render(request, "ram.html", form)
+
+
+def ram(request, givenTime):
+    memory = []
+    while True:
+        memory.append(" " * 100_000_000)
+        timeLib.sleep(int(givenTime))
