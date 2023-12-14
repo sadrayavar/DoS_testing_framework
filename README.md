@@ -1,16 +1,16 @@
-# DoS testing local tool [(Click)](https://github.com/sadrayavar/DoS_testing_framework)
+# DoS Testing Local Tool [(Click)](https://github.com/sadrayavar/DoS_testing_framework)
 
-I developed this simple tool to test the DoS mitigation tools.<br>
-This tool has 2 parts which are:
+I developed this simple tool to test DoS mitigation tools.<br>
+This tool has 2 parts:
 
 - Target website
-- Attacker
+- StressTester
 
 <br>
 
 ### Usage
 
-Execute following commands in given order (for the first time):
+Execute the following commands in the given order (for the first time):
 
 - `python manage.py makemigrations`
 - `python manage.py migrate`
@@ -18,7 +18,7 @@ Execute following commands in given order (for the first time):
 
 <br>
 
-Then you can start server each time using below command:
+Then you can start the server each time using the following command:
 
 - `gunicorn DoS_testing_website.wsgi:application --config gunicorn.py`
 
@@ -27,26 +27,26 @@ Then you can start server each time using below command:
 
 ### Recommendation
 
-I suggest you run this Project as a `docker-compose` service and limit its resources using `cpus` and `mem_limit` attributes so your system does not crash.
+I suggest you run this project as a `docker-compose` service and limit its resources using the `cpus` and `mem_limit` attributes so your system does not crash.
 
 <br>
 <br>
 <br>
 
-## Attacker
+## StressTester
 
-The attacker tool is a python code that uses "request" library and it has 2 classes which are:
+The StressTester tool is a Python code that uses the "requests" library and has 2 classes:
 
 - `Get`
 - `Ui`
 
 ### Get
 
-Is for getting files from specific URL and save it to "downloades" directory.
+Is for getting files from a specific URL and saving them to the "downloads" directory.
 
 ### Ui
 
-Is for getting url and selecting attack type and value thorugh python command.
+Is for getting the URL and selecting the attack type and value through a Python command.
 
 <br>
 <br>
@@ -54,7 +54,7 @@ Is for getting url and selecting attack type and value thorugh python command.
 
 ## Website
 
-The website has 3 pages for any Hardware resources that are involved in a typical DoS attack:
+The website has 3 pages for the hardware resources involved in a typical DoS attack:
 
 - Bandwidth
 - CPU
@@ -64,22 +64,21 @@ The website has 3 pages for any Hardware resources that are involved in a typica
 
 ### Bandwidth (http://localhost/bw)
 
-Displays list of the files that are in the "static" folder of django project. After you select one of them, It will redirect you to "http://localhost/bw/&lt;fileName&gt;" to download the respective file.
+Displays a list of the files in the "static" folder of the Django project. After you select one of them, it will redirect you to "http://localhost/bw/&lt;fileName&gt;" to download the respective file.
 
 <br>
 
 ### CPU (http://localhost/cpu)
 
-It will ask you a number and will redirect you to "http://localhost/cpu/&lt;givenNumber&gt;". After that it will calculate its runtime, digits and result itself.
+It will ask you for a number and then redirect you to "http://localhost/cpu/&lt;givenNumber&gt;". After that, it will calculate its runtime, digits, and result itself.
 
-If non integer value given, It will redirect you to "http://localhost/cpu" so you can enter a new value.
+If a non-integer value is given, it will redirect you to "http://localhost/cpu" so you can enter a new value.
 
 <br>
 
 ### RAM (http://localhost/ram)
 
-Just like the CPU section, It will ask you a number and will redirect you to "http://localhost/ram/&lt;givenNumber&gt;". After that it will load 100MB every &lt;givenNumber&gt; seconds.<b>
-Be aware to stop it before your RAM fills up using Django terminal.
-</b>
+Just like the CPU section, it will ask you for a number and then redirect you to "http://localhost/ram/&lt;givenNumber&gt;". After that, it will load 100MB every &lt;givenNumber&gt; seconds.<br>
+Be aware to stop it before your RAM fills up using the Django terminal.
 
-If non number given, It will redirect you to "http://localhost/ram" so you can enter a new value.
+If a non-number is given, it will redirect you to "http://localhost/ram" so you can enter a new value.

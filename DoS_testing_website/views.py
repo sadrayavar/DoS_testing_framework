@@ -10,8 +10,8 @@ def home(request):
     return render(request, "home.html")
 
 
-def get(request):
-    filePath = "./get.py"
+def getStressTester(request):
+    filePath = "./stressTester.py"
     file = open(filePath, "rb")
     return FileResponse(file, as_attachment=True)
 
